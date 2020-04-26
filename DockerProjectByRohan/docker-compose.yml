@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+    command: ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+   
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:11-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=Password
+      - POSTGRES_USER=rohan
+      - POSTGRES_DB=rohan
+
+volumes:
+  pgdata:
